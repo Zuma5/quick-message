@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fast messages</title>
+    <link rel="icon" type="image/png" href="img/msg.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2b2b2b;
+            color: #d4d4d4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+            gap: 15px;
+            align-items: center;
+        }
+        .form-row2 {
+            display: flex;
+        }
+        .form-row2 label {
+            margin-right: 10px;
+        }
+        .form-row label {
+            flex: 1 1 200px;
+            margin-bottom: 5px;
+        }
+        select, input[type="text"] {
+            flex: 2 1 200px;
+            padding: 8px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background-color: #444;
+            color: #d4d4d4;
+        }
+        .copy-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        .copy-button img {
+            width: 20px;
+            height: 20px;
+        }
+        .result {
+            background-color: #1e1e1e;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .result-table-container {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .result-table th, .result-table td {
+            border: 1px solid #444;
+            padding: 8px;
+            text-align: left;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #5a5a5a;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #d4d4d4;
+            display: flex;
+            align-items: center;
+        }
+        button:hover {
+            background-color: #777;
+        }
+        .copied-text {
+            background-color: #5a5a5a;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            position: absolute;
+            right: 0;
+            transform: translateX(30px);
+        }
+        .visible {
+            opacity: 1;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Task Submission Helper</h2>
+
+        <div class="form-row">
+            <label for="qa">👤 Choose QA:</label>
+            <select id="qa">
+                <option value="@Oleksandr Mykhailyk">@Oleksandr Mykhailyk</option>
+                <option value="@Oleksandr Matiash">@Oleksandr Matiash</option>
+                <option value="@Mykhailo Nimukha">@Mykhailo Nimukha</option>
+            </select>
+
+            <label for="taskName">📋 Task Name:</label>
+            <input type="text" id="taskName" placeholder="Enter task name">
+        </div>
+
+        <div class="form-row">
+            <label for="taskLink">🔗 Task Link:</label>
+            <input type="text" id="taskLink" placeholder="Enter task link">
+
+            <label for="popupLink">🔗 Pop-up Task Link:</label>
+            <input type="text" id="popupLink" placeholder="Enter pop-up task link">
+        </div>
+
+        <div class="form-row2">
+            <label for="pageLink">🌐 Page Link:</label>
+            <input type="text" id="pageLink" placeholder="Enter page link">
+        </div>
+
+        <h3>ID Information</h3>
+
+        <div class="form-row">
+            <label for="webPromoID">🆔 Web promo ID:</label>
+            <input type="text" id="webPromoID" placeholder="Enter Web promo ID">
+
+            <label for="ChampID">🆔 Champ ID:</label>
+            <input type="text" id="ChampID" placeholder="Enter Champ ID">
+        </div>
+
+        <div class="form-row">
+            <label for="appPromoID">🆔 App promo ID:</label>
+            <input type="text" id="appPromoID" placeholder="Enter App promo ID">
+
+            <label for="webSliderID">🆔 Web slider ID:</label>
+            <input type="text" id="webSliderID" placeholder="Enter Web slider ID">
+
+            <label for="appSliderID">🆔 App slider ID:</label>
+            <input type="text" id="appSliderID" placeholder="Enter App slider ID">
+
+            <label for="popupID">🆔 Pop-up ID:</label>
+            <input type="text" id="popupID" placeholder="Enter Pop-up ID">
+        </div>
+
+        <button onclick="generateMessage()">Generate Task Submission</button>
+
+        <div id="resultContainer" class="hidden">
+            <div class="result">
+                <div id="resultText"></div>
+                <button class="copy-button" onclick="copyText('resultText', this)">
+                    <img src="img/copy_icon.png" alt="Copy">
+                </button>
+                <div class="copied-text hidden">Copied</div>
+            </div>
+            <div id="resultTableContainer" class="result-table-container hidden">
+                <div id="resultTable"></div>
+                <button class="copy-button" onclick="copyText('resultTable', this)">
+                    <img src="img/copy_icon.png" alt="Copy">
+                </button>
+                <div class="copied-text hidden">Copied</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generateMessage() {
+            const qa = document.getElementById("qa").value;
+            const taskName = document.getElementById("taskName").value;
+            const taskLink = document.getElementById("taskLink").value;
+            const popupLink = document.getElementById("popupLink").value;
+            const pageLink = document.getElementById("pageLink").value;
+
+            let message = `${qa}\n${taskName}\n`;
+
+            if (popupLink) {
+                message += `content: ${taskLink}\npop-up: ${popupLink}\n`;
+            } else {
+                message += `${taskLink}\n`;
+            }
+
+            message += `${pageLink}\n`; // Ensuring a newline for link separation
+
+            const webPromoID = document.getElementById("webPromoID").value;
+            const ChampID = document.getElementById("ChampID").value;
+            const appPromoID = document.getElementById("appPromoID").value;
+            const webSliderID = document.getElementById("webSliderID").value;
+            const appSliderID = document.getElementById("appSliderID").value;
+            const popupID = document.getElementById("popupID").value;
+
+            let tableContent = `
+            <table class="result-table">
+                <tr><th>ID Type</th><th>ID</th><th>Comment</th></tr>`;
+            
+            if (webPromoID) {
+                tableContent += `<tr><td>Web promo ID</td><td>${webPromoID}</td><td>Comment (optional)</td></tr>`;
+            }
+            if (ChampID) {
+                tableContent += `<tr><td>Champ ID</td><td>${ChampID}</td><td>Comment (optional)</td></tr>`;
+            }
+            if (appPromoID) {
+                tableContent += `<tr><td>App promo ID</td><td>${appPromoID}</td><td>Comment (optional)</td></tr>`;
+            }
+            if (webSliderID) {
+                tableContent += `<tr><td>Web slider ID</td><td>${webSliderID}</td><td>Comment (optional)</td></tr>`;
+            }
+            if (appSliderID) {
+                tableContent += `<tr><td>App slider ID</td><td>${appSliderID}</td><td>Comment (optional)</td></tr>`;
+            }
+            if (popupID) {
+                tableContent += `<tr><td>Pop-up ID</td><td>${popupID}</td><td>Comment (optional)</td></tr>`;
+            }
+            tableContent += '</table>';
+
+            document.getElementById("resultText").innerHTML = `<pre>${message}</pre>`;
+            document.getElementById("resultTable").innerHTML = tableContent;
+
+            document.getElementById("resultContainer").classList.remove("hidden");
+
+            if (tableContent) {
+                document.getElementById("resultTableContainer").classList.remove("hidden");
+            }
+        }
+
+        function copyText(containerId, buttonElement) {
+            const container = document.getElementById(containerId);
+            const range = document.createRange();
+            range.selectNode(container);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+
+            try {
+                document.execCommand('copy');
+                const copiedTextElement = buttonElement.nextElementSibling;
+                copiedTextElement.classList.remove("hidden");
+                copiedTextElement.classList.add("visible");
+                setTimeout(() => {
+                    copiedTextElement.classList.remove("visible");
+                    copiedTextElement.classList.add("hidden");
+                }, 1000);
+            } catch (err) {
+                console.log('Copy command failed', err);
+            }
+
+            window.getSelection().removeAllRanges(); // Clear selection
+        }
+    </script>
+</body>
+</html>
