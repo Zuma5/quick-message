@@ -8,57 +8,58 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #2b2b2b;
-            color: #d4d4d4;
+            background-color: #f0f0f0;
+            color: #333;
             padding: 20px;
+            margin: 0;
         }
         .container {
-            max-width: 900px;
+            max-width: 600px;
             margin: 0 auto;
-            background-color: #333;
+            background-color: #fff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        .form-row {
+        .form-row, .form-row2 {
             display: flex;
             flex-wrap: wrap;
             margin-bottom: 10px;
-            gap: 15px;
+            gap: 10px;
             align-items: center;
         }
-        .form-row2 {
-            display: flex;
-        }
-        .form-row2 label {
-            margin-right: 10px;
-        }
-        .form-row label {
-            flex: 1 1 200px;
+        .form-row label, .form-row2 label {
+            flex: 1 1 40%;
+            font-weight: bold;
             margin-bottom: 5px;
         }
         select, input[type="text"] {
-            flex: 2 1 200px;
+            flex: 2 1 55%;
             padding: 8px;
-            border: 1px solid #444;
+            border: 1px solid #ccc;
             border-radius: 4px;
-            background-color: #444;
-            color: #d4d4d4;
+            background-color: #fafafa;
+            color: #333;
         }
-        .copy-button {
-            background-color: transparent;
+        h3 {
+            color: #555;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
             border: none;
+            border-radius: 4px;
+            color: #fff;
             cursor: pointer;
-            margin-left: 10px;
-            vertical-align: middle;
+            margin-top: 20px;
         }
-        .copy-button img {
-            width: 20px;
-            height: 20px;
+        button:hover {
+            background-color: #0056b3;
         }
         .result {
-            background-color: #1e1e1e;
+            background-color: #f8f9fa;
             padding: 15px;
             margin-top: 20px;
             border-radius: 4px;
@@ -77,27 +78,25 @@
         .result-table {
             width: 100%;
             border-collapse: collapse;
+            background-color: #fff;
         }
         .result-table th, .result-table td {
-            border: 1px solid #444;
+            border: 1px solid #ccc;
             padding: 8px;
             text-align: left;
         }
-        button {
-            padding: 10px 20px;
-            background-color: #5a5a5a;
+        .copy-button {
+            background-color: transparent;
             border: none;
-            border-radius: 4px;
             cursor: pointer;
-            color: #d4d4d4;
-            display: flex;
-            align-items: center;
         }
-        button:hover {
-            background-color: #777;
+        .copy-button img {
+            width: 20px;
+            height: 20px;
         }
         .copied-text {
-            background-color: #5a5a5a;
+            background-color: #28a745;
+            color: #fff;
             padding: 3px 8px;
             border-radius: 4px;
             font-size: 12px;
@@ -117,55 +116,66 @@
 </head>
 <body>
     <div class="container">
-        <h2>Task Submission Helper</h2>
-
         <div class="form-row">
             <label for="qa">👤 Choose QA:</label>
             <select id="qa">
                 <option value="@Oleksandr Mykhailyk">@Oleksandr Mykhailyk</option>
                 <option value="@Oleksandr Matiash">@Oleksandr Matiash</option>
                 <option value="@Mykhailo Nimukha">@Mykhailo Nimukha</option>
+                <option value="@Diana Yashchenko">@Diana Yashchenko</option>
             </select>
+        </div>
 
+        <div class="form-row">
             <label for="taskName">📋 Task Name:</label>
-            <input type="text" id="taskName" placeholder="Enter task name">
+            <input type="text" id="taskName" placeholder=".....">
         </div>
 
         <div class="form-row">
             <label for="taskLink">🔗 Task Link:</label>
-            <input type="text" id="taskLink" placeholder="Enter task link">
+            <input type="text" id="taskLink" placeholder=".....">
+        </div>
 
+        <div class="form-row">
             <label for="popupLink">🔗 Pop-up Task Link:</label>
-            <input type="text" id="popupLink" placeholder="Enter pop-up task link">
+            <input type="text" id="popupLink" placeholder=".....">
         </div>
 
         <div class="form-row2">
             <label for="pageLink">🌐 Page Link:</label>
-            <input type="text" id="pageLink" placeholder="Enter page link">
+            <input type="text" id="pageLink" placeholder=".....">
         </div>
 
         <h3>ID Information</h3>
 
         <div class="form-row">
             <label for="webPromoID">🆔 Web promo ID:</label>
-            <input type="text" id="webPromoID" placeholder="Enter Web promo ID">
+            <input type="text" id="webPromoID" placeholder=".....">
+        </div>
 
+        <div class="form-row">
             <label for="ChampID">🆔 Champ ID:</label>
-            <input type="text" id="ChampID" placeholder="Enter Champ ID">
+            <input type="text" id="ChampID" placeholder=".....">
         </div>
 
         <div class="form-row">
             <label for="appPromoID">🆔 App promo ID:</label>
-            <input type="text" id="appPromoID" placeholder="Enter App promo ID">
+            <input type="text" id="appPromoID" placeholder=".....">
+        </div>
 
+        <div class="form-row">
             <label for="webSliderID">🆔 Web slider ID:</label>
-            <input type="text" id="webSliderID" placeholder="Enter Web slider ID">
+            <input type="text" id="webSliderID" placeholder=".....">
+        </div>
 
+        <div class="form-row">
             <label for="appSliderID">🆔 App slider ID:</label>
-            <input type="text" id="appSliderID" placeholder="Enter App slider ID">
+            <input type="text" id="appSliderID" placeholder=".....">
+        </div>
 
+        <div class="form-row">
             <label for="popupID">🆔 Pop-up ID:</label>
-            <input type="text" id="popupID" placeholder="Enter Pop-up ID">
+            <input type="text" id="popupID" placeholder=".....">
         </div>
 
         <button onclick="generateMessage()">Generate Task Submission</button>
@@ -215,29 +225,29 @@
 
             let tableContent = `
             <table class="result-table">
-                <tr><th>ID Type</th><th>ID</th><th>Comment</th></tr>`;
+                <tr><th> </th><th> </th><th> </th></tr>`;
             
             if (webPromoID) {
-                tableContent += `<tr><td>Web promo ID</td><td>${webPromoID}</td><td>Comment (optional)</td></tr>`;
+                tableContent += `<tr><td>Web promo ID</td><td>${webPromoID}</td><td> </td></tr>`;
             }
             if (ChampID) {
-                tableContent += `<tr><td>Champ ID</td><td>${ChampID}</td><td>Comment (optional)</td></tr>`;
+                tableContent += `<tr><td>Champ ID</td><td>${ChampID}</td><td> </td></tr>`;
             }
             if (appPromoID) {
-                tableContent += `<tr><td>App promo ID</td><td>${appPromoID}</td><td>Comment (optional)</td></tr>`;
+                tableContent += `<tr><td>App promo ID</td><td>${appPromoID}</td><td> </td></tr>`;
             }
             if (webSliderID) {
-                tableContent += `<tr><td>Web slider ID</td><td>${webSliderID}</td><td>Comment (optional)</td></tr>`;
+                tableContent += `<tr><td>Web slider ID</td><td>${webSliderID}</td><td> </td></tr>`;
             }
             if (appSliderID) {
-                tableContent += `<tr><td>App slider ID</td><td>${appSliderID}</td><td>Comment (optional)</td></tr>`;
+                tableContent += `<tr><td>App slider ID</td><td>${appSliderID}</td><td> </td></tr>`;
             }
             if (popupID) {
-                tableContent += `<tr><td>Pop-up ID</td><td>${popupID}</td><td>Comment (optional)</td></tr>`;
+                tableContent += `<tr><td>Pop-up ID</td><td>${popupID}</td><td> </td></tr>`;
             }
             tableContent += '</table>';
 
-            document.getElementById("resultText").innerHTML = `<pre>${message}</pre>`;
+            document.getElementById("resultText").innerHTML = `<div>${message}</div>`;
             document.getElementById("resultTable").innerHTML = tableContent;
 
             document.getElementById("resultContainer").classList.remove("hidden");
